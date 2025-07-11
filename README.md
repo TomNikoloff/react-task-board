@@ -15,7 +15,6 @@ This project was created for a technical coding assessment and demonstrates full
 - **Mark tasks as complete/incomplete**
 - **Overdue/completed task "emails"** are mocked to the server console
 - **Data persists** in a local SQLite database
-- **Responsive UI** (works on desktop and mobile)
 
 ---
 
@@ -57,3 +56,32 @@ cd ../frontend
 npm run dev
 ```
 
+### API Endpoints
+
+#### Lists
+
+| Method | Endpoint     | Description                          |
+|--------|--------------|--------------------------------------|
+| GET    | `/lists`     | Get all lists                        |
+| POST   | `/lists`     | Create new list (`{ name }`)         |
+| DELETE | `/lists/:id` | Delete a list (and its tasks)        |
+
+#### Tasks
+
+| Method | Endpoint                   | Description                                                         |
+|--------|----------------------------|----------------------------------------------------------------     |
+| GET    | `/tasks?list_id=ID`        | Get all tasks for a list                                            |
+| POST   | `/tasks`                   | Create task (`{ list_id, name, description, deadline }`)            |
+| PUT    | `/tasks/:id`               | Update task (`{ name, description, deadline, completed, list_id }`) |
+| DELETE | `/tasks/:id`               | Delete a task                                                       |
+
+Note: “Emails” for completed or overdue tasks are logged to the backend console, not actually sent.
+
+---
+
+## Developer Notes
+
+- Make sure the backend is running before starting the frontend!
+- All persistent data is stored in backend/db.sqlite (ignored by git).
+- The backend runs on port 4000 by default; the frontend is on 5173 (Vite default).
+- API docs are included above for quick reference.
