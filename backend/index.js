@@ -94,7 +94,7 @@ app.put('/tasks/:id', (req, res) => {
 			if (err) return res.status(500).json({ error: err.message });
 			// Mock "email" if marking as completed
 			if (completed) {
-				console.log(`Email: Task "${name}" (ID: ${id}) marked as completed at ${new Date().toISOString()}`);
+				console.log(`Email: Task "${name}" (ID: ${id}) marked as completed at ${new Date()}`);
 			}
 			res.json({ success: true });
 		}
@@ -111,21 +111,23 @@ app.delete('/tasks/:id', (req, res) => {
 });
 
 // ---- OVERDUE TASK CHECKER ----
-// Check every minute for overdue, incomplete tasks and log "emails"
+// Check for overdue, incomplete tasks and log "emails"
 setInterval(() => {
 	db.all(
-		'SELECT * FROM tasks WHERE completed = 0 AND deadline IS NOT NULL AND datetime(deadline) < datetime("now") AND overdue_notified = 0',
+		'SELECT * FROM tasks WHERE completed = 0 AND overdue_notified = 0 AND deadline IS NOT NULL AND datetime(deadline) < datetime("now")',
 		(err, rows) => {
 			if (!err && rows.length) {
 				rows.forEach(task => {
 					console.log(`Email: Task "${task.name}" (ID: ${task.id}) is overdue as of ${task.deadline}`);
-					db.run('UPDATE tasks SET overdue_notified = 1 WHERE id = ?', [task.id]);
+					db.run(
+						'UPDATE tasks SET overdue_notified = 1 WHERE id = ?',
+						[task.id]
+					);
 				});
 			}
 		}
 	);
 }, 60 * 1000);
-
 
 app.listen(4000, () => {
 	console.log('Server listening on port 4000');
