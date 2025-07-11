@@ -1,0 +1,76 @@
+/* src/tailwind.css */
+@import "tailwindcss";
+
+@layer components {
+	/* Tablet and up (min-width: 640px) */
+	@media (min-width: theme('screens.sm')) {
+		.form-horizontal .form-label {
+			@apply w-[215px] mt-[8px] float-left;
+		}
+		.form-horizontal .form-controls {
+			@apply ml-[230px];
+		}
+
+		/* small-form override */
+		.form-horizontal .small-form .form-label {
+			@apply w-[125px] mt-[8px];      /* half of 200px & 8px */
+		}
+		.form-horizontal .small-form .form-controls {
+			@apply ml-[107.5px];            /* half of 215px */
+		}
+	}
+
+	/* Desktop and up (min-width: 768px) */
+	@media (min-width: theme('screens.md')) {
+		.md\:form-horizontal .form-label {
+			@apply w-[215px] mt-[8px] float-left;
+		}
+		.md\:form-horizontal .form-controls {
+			@apply ml-[230px];
+		}
+
+		/* small-form override */
+		.md\:form-horizontal .small-form .form-label {
+			@apply w-[125px] mt-[8px];      /* half of 200px & 8px */
+		}
+		.md\:form-horizontal .small-form .form-controls {
+			@apply ml-[107.5px];            /* half of 215px */
+		}
+	}
+
+	/* Large screens and up (min-width: 1024px) */
+	@media (min-width: theme('screens.lg')) {
+		.lg\:form-horizontal .form-label {
+			@apply w-[215px] mt-[8px] float-left;
+		}
+		.lg\:form-horizontal .form-controls {
+			@apply ml-[230px];
+		}
+
+		/* small-form override */
+		.lg\:form-horizontal .small-form .form-label {
+			@apply w-[125px] mt-[8px];      /* half of 200px & 8px */
+		}
+		.lg\:form-horizontal .small-form .form-controls {
+			@apply ml-[107.5px];            /* half of 215px */
+		}
+	}
+
+	/* Extra-large screens and up (min-width: 1280px) */
+	@media (min-width: theme('screens.xl')) {
+		.xl\:form-horizontal .form-label {
+			@apply w-[215px] mt-[8px] float-left;
+		}
+		.xl\:form-horizontal .form-controls {
+			@apply ml-[230px];
+		}
+
+		/* small-form override */
+		.xl\:form-horizontal .small-form .form-label {
+			@apply w-[125px] mt-[8px];      /* half of 200px & 8px */
+		}
+		.xl\:form-horizontal .small-form .form-controls {
+			@apply ml-[107.5px];            /* half of 215px */
+		}
+	}
+}
