@@ -50,6 +50,7 @@ app.post('/lists', (req, res) => {
 // Delete a list (and its tasks)
 app.delete('/lists/:id', (req, res) => {
 	const id = req.params.id;
+	if(!id) return res.status(400).json({ error: "List ID is required" });
 	db.run('DELETE FROM tasks WHERE list_id = ?', [id], function() {
 		db.run('DELETE FROM lists WHERE id = ?', [id], function(err) {
 			if (err) return res.status(500).json({ error: err.message });
@@ -63,6 +64,7 @@ app.delete('/lists/:id', (req, res) => {
 // Get tasks for a list
 app.get('/tasks', (req, res) => {
 	const list_id = req.query.list_id;
+	if(!list_id) return res.status(400).json({ error: "List ID is required" });
 	db.all('SELECT * FROM tasks WHERE list_id = ?', [list_id], (err, rows) => {
 		if (err) return res.status(500).json({ error: err.message });
 		res.json(rows);
@@ -86,6 +88,7 @@ app.post('/tasks', (req, res) => {
 // Edit a task (including moving to new list and mark complete)
 app.put('/tasks/:id', (req, res) => {
 	const id = req.params.id;
+	if (!id) return res.status(400).json({ error: "Task ID is required" });
 	const { name, description, deadline, completed, list_id } = req.body;
 	db.run(
 		'UPDATE tasks SET name = ?, description = ?, deadline = ?, completed = ?, list_id = ? WHERE id = ?',
@@ -104,6 +107,7 @@ app.put('/tasks/:id', (req, res) => {
 // Delete a task
 app.delete('/tasks/:id', (req, res) => {
 	const id = req.params.id;
+	if (!id) return res.status(400).json({ error: "Task ID is required" });
 	db.run('DELETE FROM tasks WHERE id = ?', [id], function(err) {
 		if (err) return res.status(500).json({ error: err.message });
 		res.json({ success: true });
